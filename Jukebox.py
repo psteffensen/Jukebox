@@ -32,8 +32,11 @@ class UpSprite(pygame.sprite.Sprite):
         self.rect = pygame.Rect(400, 0, 80, 120)
         self.page = page
  
-    def on_click(self):
-        return self.page.page_1()
+    def on_click(self, page_num):
+        page_num = page_num - 1
+        if page_num < 0:
+            page_num = 1
+        return self.page.page(page_num)
         
        
         
@@ -46,8 +49,11 @@ class DownSprite(pygame.sprite.Sprite):
         self.rect = pygame.Rect(400, 200, 80, 120)
         self.page = page
         
-    def on_click(self):
-        return self.page.page_2()
+    def on_click(self, page_num):
+        page_num = page_num + 1
+        if page_num > 1:
+            page_num = 0
+        return self.page.page(page_num)
 
       
        
@@ -146,51 +152,55 @@ class Page():
         stop_sprite = StopSprite()
         self.sprite_group.add(stop_sprite)
     
-    def page_1(self):
+    def page(self, page_num):
         self.clear_screen()
         
-        # Cirkeline Sprite
-        images = []
-        images.append(pygame.image.load('images/cirkeline_small_1.png'))
-        images.append(pygame.image.load('images/cirkeline_small_2.png'))
-        music = 'music/Cirkeline - Lossepladsen.mp3'
-        pos = [0,0,100,160]
-        cirkeline_sprite = AnimateSprite(images, music, pos)
-        
-        # Mamma Mia
-        images = []
-        images.append(pygame.image.load('images/abba - mamma mia.png'))
-        music = 'music/ABBA - Mamma Mia.mp3'
-        pos = [100,0,100,160]
-        mammamia_sprite = RotateSprite(images, music, pos)
-        
-        self.sprite_group.add(mammamia_sprite)
-        self.sprite_group.add(cirkeline_sprite)
-        
-        return self.sprite_group, images, music, pos
-    
-    def page_2(self):
-        self.clear_screen()
-        
-        # Cirkeline Sprite
-        images = []
-        images.append(pygame.image.load('images/cirkeline_small_1.png'))
-        images.append(pygame.image.load('images/cirkeline_small_2.png'))
-        music = 'music/Cirkeline - Lossepladsen.mp3'
-        pos = [10,0,100,160]
-        cirkeline_sprite = AnimateSprite(images, music, pos)
-        
-        # Mamma Mia
-        images = []
-        images.append(pygame.image.load('images/abba - mamma mia.png'))
-        music = 'music/ABBA - Mamma Mia.mp3'
-        pos = [200,20,100,160]
-        mammamia_sprite = RotateSprite(images, music, pos)
+        if page_num == 0:
+            # Cirkeline Sprite
+            images = []
+            images.append(pygame.image.load('images/cirkeline_small_1.png'))
+            images.append(pygame.image.load('images/cirkeline_small_2.png'))
+            music = 'music/Cirkeline - Lossepladsen.mp3'
+            pos = [0,0,100,160]
+            cirkeline_sprite = AnimateSprite(images, music, pos)
+            
+            # Mamma Mia
+            images = []
+            images.append(pygame.image.load('images/abba - mamma mia.png'))
+            music = 'music/ABBA - Mamma Mia.mp3'
+            pos = [100,0,100,160]
+            mammamia_sprite = RotateSprite(images, music, pos)
+            
+            self.sprite_group.add(mammamia_sprite)
+            self.sprite_group.add(cirkeline_sprite)
+            
+            return self.sprite_group, images, music, pos, page_num
+        elif page_num == 1:
+            # Cirkeline Sprite
+            images = []
+            images.append(pygame.image.load('images/cirkeline_small_1.png'))
+            images.append(pygame.image.load('images/cirkeline_small_2.png'))
+            music = 'music/Cirkeline - Lossepladsen.mp3'
+            pos = [10,0,100,160]
+            cirkeline_sprite = AnimateSprite(images, music, pos)
+            
+            # Mamma Mia
+            images = []
+            images.append(pygame.image.load('images/abba - mamma mia.png'))
+            music = 'music/ABBA - Mamma Mia.mp3'
+            pos = [200,20,100,160]
+            mammamia_sprite = RotateSprite(images, music, pos)
 
-        self.sprite_group.add(mammamia_sprite)
-        self.sprite_group.add(cirkeline_sprite)
-        
-        return self.sprite_group, images, music, pos
+            self.sprite_group.add(mammamia_sprite)
+            self.sprite_group.add(cirkeline_sprite)
+            
+            return self.sprite_group, images, music, pos, page_num
+        else:
+            images = []
+            music = []
+            pos = [0,0,0,0]
+            return self.sprite_group, images, music, pos, page_num
+            
 
             
 def main():
@@ -204,7 +214,8 @@ def main():
     page = Page(sprite_group, sprite_nav_group)
     
     # Starting on page 1
-    sprite_group, images, music, position = page.page_1()
+    page_num = 0
+    sprite_group, images, music, position, page_num = page.page(page_num)
 
     # Faste knapper
     stop_sprite = StopSprite()
@@ -256,7 +267,8 @@ def main():
                 # Action for all navigation buttons
                 for s in sprite_nav_group:
                     if s.rect.collidepoint(pos):
-                        sprite_group, images, music, position  = s.on_click()
+                        print page_num
+                        sprite_group, images, music, position, page_num  = s.on_click(page_num)
         
  
 if __name__ == '__main__':
