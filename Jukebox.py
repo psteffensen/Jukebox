@@ -207,6 +207,7 @@ def main():
     pygame.init()
     pygame.mixer.init()
         
+    #screen = pygame.display.set_mode(SIZE, pygame.FULLSCREEN)
     screen = pygame.display.set_mode(SIZE)
     
     sprite_group = pygame.sprite.Group()
@@ -229,12 +230,8 @@ def main():
     clock = pygame.time.Clock()
  
     stop_all = 0
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
- 
+    running = True
+    while running:
         sprite_group.update()
         sprite_nav_group.update()
         sprite_group
@@ -246,10 +243,9 @@ def main():
  
         # get all events
         ev = pygame.event.get()
-
+        print ev
         # proceed events
         for event in ev:
-
             # handle MOUSEBUTTONUP
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
@@ -269,7 +265,12 @@ def main():
                     if s.rect.collidepoint(pos):
                         print page_num
                         sprite_group, images, music, position, page_num  = s.on_click(page_num)
-        
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit() 
+                    running = False
+            
  
 if __name__ == '__main__':
     main()
