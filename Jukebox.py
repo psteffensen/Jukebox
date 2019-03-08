@@ -9,7 +9,7 @@ class StopSprite(pygame.sprite.Sprite):
         super(StopSprite, self).__init__()
  
         self.images = []
-        self.images.append(pygame.image.load('images/stop.png'))
+        self.images.append(pygame.image.load('images/stop2.png'))
 
         self.index = 0
         self.clicked = 0
@@ -106,7 +106,9 @@ class RotateSprite(pygame.sprite.Sprite):
         self.angle = 0
         self.angle_step = 10
         self.rect = pygame.Rect(pos[0]+pos[2]*0.293/2, pos[1]+pos[3]*0.293/2, pos[2]*0.707, pos[3]*0.707)
-        self.rect_orig = self.rect
+        self.clicked = 1
+        self.update()
+        self.clicked = 0
  
     def on_click(self):
         pygame.mixer.music.stop()
@@ -128,10 +130,11 @@ class RotateSprite(pygame.sprite.Sprite):
  
     def update(self):
         if self.clicked == 1:
-            self.angle = self.angle + self.angle_step
             if self.angle >= 360:
                 self.angle = 0
-            self.image, self.rect = self.rotate(self.image_orig, self.rect_orig, self.angle)
+            self.image, self.rect = self.rotate(self.image_orig, self.rect, self.angle)
+            self.angle = self.angle + self.angle_step
+
 
 
 class Page():
@@ -236,27 +239,27 @@ def main():
  
         # get all events
         ev = pygame.event.get()
-        print ev
         # proceed events
         for event in ev:
+            sprite_clicked = 0
             # handle MOUSEBUTTONDOWN
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 
-                # Action for sprites
+                # Action for pressed sprites
                 for s in sprite_group:
                     if s.rect.collidepoint(pos):
                         s.on_click()
                         sprite_clicked = 1
-                
-                #if no sprite in sprite_group was pressed
-                if sprite_clicked == 0:
-                    for s in sprite_group:
-                        pygame.mixer.music.stop()
+                    else: # if sprite is clicked, the others should stop
                         s.clicked = 0
-                else:
-                    for s in sprite_group
                 
+                # if no sprite in sprite_group was pressed
+                if sprite_clicked == 0:
+                    pygame.mixer.music.stop()
+                    for s in sprite_group:
+                        s.clicked = 0
+                            
                 # Action for all navigation buttons
                 for s in sprite_nav_group:
                     if s.rect.collidepoint(pos):
