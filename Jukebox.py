@@ -203,9 +203,9 @@ def main():
     pygame.init()
     pygame.mixer.init()
         
-    #screen = pygame.display.set_mode(SIZE, pygame.FULLSCREEN)
-    screen = pygame.display.set_mode(SIZE)
-    #pygame.mouse.set_visible(False)
+    screen = pygame.display.set_mode(SIZE, pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode(SIZE)
+    pygame.mouse.set_visible(False)
     
     sprite_group = pygame.sprite.Group()
     sprite_nav_group = pygame.sprite.Group()
