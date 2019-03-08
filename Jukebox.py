@@ -20,7 +20,6 @@ class StopSprite(pygame.sprite.Sprite):
  
     def on_click(self):
         pygame.mixer.music.stop()
-        return 1
     
         
 class UpSprite(pygame.sprite.Sprite):
@@ -83,15 +82,12 @@ class AnimateSprite(pygame.sprite.Sprite):
     
         #self.clicked = not self.clicked
         self.clicked = 1
-        return 1
         
     def update(self):
         if self.clicked == 1:
             self.index += 1
-     
             if self.index >= len(self.images):
                 self.index = 0
-            
             self.image = self.images[self.index]
  
  
@@ -101,8 +97,6 @@ class RotateSprite(pygame.sprite.Sprite):
  
         self.music = music
         self.images = images
-        #self.images.append(pygame.image.load('images/cirkeline_small_1.png'))
-        #self.images.append(pygame.image.load('images/cirkeline_small_2.png'))
  
         self.index = 0
         self.clicked = 0
@@ -111,7 +105,7 @@ class RotateSprite(pygame.sprite.Sprite):
         self.image_orig = self.image
         self.angle = 0
         self.angle_step = 10
-        self.rect = pygame.Rect(pos[0], pos[1], pos[2], pos[3])
+        self.rect = pygame.Rect(pos[0]+pos[2]*0.293/2, pos[1]+pos[3]*0.293/2, pos[2]*0.707, pos[3]*0.707)
         self.rect_orig = self.rect
  
     def on_click(self):
@@ -123,7 +117,6 @@ class RotateSprite(pygame.sprite.Sprite):
     
         #self.clicked = not self.clicked
         self.clicked = 1
-        return 1
  
     def rotate(self, image, rect, angle):
         """Rotate the image while keeping its center."""
@@ -161,14 +154,14 @@ class Page():
             images.append(pygame.image.load('images/cirkeline_small_1.png'))
             images.append(pygame.image.load('images/cirkeline_small_2.png'))
             music = 'music/Cirkeline - Lossepladsen.mp3'
-            pos = [0,0,100,160]
+            pos = [0,0,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
             # Mamma Mia
             images = []
             images.append(pygame.image.load('images/abba - mamma mia.png'))
             music = 'music/ABBA - Mamma Mia.mp3'
-            pos = [100,0,100,160]
+            pos = [130,0,130,160]
             mammamia_sprite = RotateSprite(images, music, pos)
             
             self.sprite_group.add(mammamia_sprite)
@@ -181,14 +174,14 @@ class Page():
             images.append(pygame.image.load('images/cirkeline_small_1.png'))
             images.append(pygame.image.load('images/cirkeline_small_2.png'))
             music = 'music/Cirkeline - Lossepladsen.mp3'
-            pos = [10,0,100,160]
+            pos = [0,160,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
             # Mamma Mia
             images = []
             images.append(pygame.image.load('images/abba - mamma mia.png'))
             music = 'music/ABBA - Mamma Mia.mp3'
-            pos = [200,20,100,160]
+            pos = [130,160,130,160]
             mammamia_sprite = RotateSprite(images, music, pos)
 
             self.sprite_group.add(mammamia_sprite)
@@ -207,8 +200,9 @@ def main():
     pygame.init()
     pygame.mixer.init()
         
-    screen = pygame.display.set_mode(SIZE, pygame.FULLSCREEN)
-    #screen = pygame.display.set_mode(SIZE)
+    #screen = pygame.display.set_mode(SIZE, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode(SIZE)
+    #pygame.mouse.set_visible(False)
     
     sprite_group = pygame.sprite.Group()
     sprite_nav_group = pygame.sprite.Group()
@@ -229,12 +223,11 @@ def main():
     
     clock = pygame.time.Clock()
  
-    stop_all = 0
+    sprite_clicked = 0
     running = True
     while running:
         sprite_group.update()
         sprite_nav_group.update()
-        sprite_group
         screen.fill(BACKGROUND_COLOR)
         sprite_group.draw(screen)
         sprite_nav_group.draw(screen)
@@ -246,26 +239,30 @@ def main():
         print ev
         # proceed events
         for event in ev:
-            # handle MOUSEBUTTONUP
-            if event.type == pygame.MOUSEBUTTONUP:
+            # handle MOUSEBUTTONDOWN
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-      
-                # Action for the clicked sprite
+                
+                # Action for sprites
                 for s in sprite_group:
                     if s.rect.collidepoint(pos):
-                        stop_all = s.on_click()
+                        s.on_click()
+                        sprite_clicked = 1
                 
-                # Action for all the rest
-                for s in sprite_group:
-                    if stop_all == 1 and not s.rect.collidepoint(pos):
+                #if no sprite in sprite_group was pressed
+                if sprite_clicked == 0:
+                    for s in sprite_group:
+                        pygame.mixer.music.stop()
                         s.clicked = 0
+                else:
+                    for s in sprite_group
                 
                 # Action for all navigation buttons
                 for s in sprite_nav_group:
                     if s.rect.collidepoint(pos):
-                        print page_num
                         sprite_group, images, music, position, page_num  = s.on_click(page_num)
             
+            # Action for keypresses
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit() 
