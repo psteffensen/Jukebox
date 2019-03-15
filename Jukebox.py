@@ -1,4 +1,5 @@
 import pygame
+import os
  
 SIZE = WIDTH, HEIGHT = 480, 320 #the width and height of our screen
 BACKGROUND_COLOR = pygame.Color('white') #The background colod of our window
@@ -209,6 +210,8 @@ class Page():
 
             
 def main():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    os.chdir( dir_path )
     pygame.init()
     pygame.mixer.init()
         
