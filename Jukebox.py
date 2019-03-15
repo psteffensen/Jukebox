@@ -176,9 +176,18 @@ class Page():
             pos = [260,0,130,160]
             EmilSnickerbo_sprite = AnimateSprite(images, music, pos)
             
+            # Georg Riedel - Sjoeroevar Fabbe
+            images = []
+            images.append(pygame.image.load('images/SjoeroevarFabbe_1.png'))
+            images.append(pygame.image.load('images/SjoeroevarFabbe_2.png'))
+            music = 'music/Georg Riedel - Sjoesoevar-Fabbe.mp3'
+            pos = [0,160,130,160]
+            SjoeroevarFabbe_sprite = AnimateSprite(images, music, pos)
+            
             self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
             self.sprite_group.add(EmilSnickerbo_sprite)
+            self.sprite_group.add(SjoeroevarFabbe_sprite)
             
             return self.sprite_group, images, music, pos, page_num
         elif page_num == 1:
