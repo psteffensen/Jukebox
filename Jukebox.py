@@ -167,8 +167,17 @@ class Page():
             pos = [130,0,130,160]
             mammamia_sprite = RotateSprite(images, music, pos)
             
+            # Emil - Snickerbo
+            images = []
+            images.append(pygame.image.load('images/Emil_Snickerbo_1.png'))
+            images.append(pygame.image.load('images/Emil_Snickerbo_2.png'))
+            music = 'music/Emil - Du Kaara Lille Snickerbo.mp3'
+            pos = [260,0,130,160]
+            EmilSnickerbo_sprite = AnimateSprite(images, music, pos)
+            
             self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
+            self.sprite_group.add(EmilSnickerbo_sprite)
             
             return self.sprite_group, images, music, pos, page_num
         elif page_num == 1:
