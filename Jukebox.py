@@ -205,7 +205,7 @@ class Page():
             images.append(pygame.image.load('images/cirkeline_small_1.png'))
             images.append(pygame.image.load('images/cirkeline_small_2.png'))
             music = 'music/Cirkeline - Lossepladsen.mp3'
-            pos = [160,160,130,160]
+            pos = [0,160,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
             self.sprite_group.add(cirkeline_sprite)
