@@ -174,7 +174,7 @@ class Page():
             images.append(pygame.image.load('images/Emil_Snickerbo_2.png'))
             music = 'music/Emil - Du Kaara Lille Snickerbo.mp3'
             pos = [260,0,130,160]
-            EmilSnickerbo_sprite = AnimateSprite(images, music, pos)
+            emilsnickerbo_sprite = AnimateSprite(images, music, pos)
             
             # Georg Riedel - Sjoeroevar Fabbe
             images = []
@@ -182,12 +182,21 @@ class Page():
             images.append(pygame.image.load('images/SjoeroevarFabbe_2.png'))
             music = 'music/Georg Riedel - Sjoesoevar-Fabbe.mp3'
             pos = [0,160,130,160]
-            SjoeroevarFabbe_sprite = AnimateSprite(images, music, pos)
+            sjoeroevarfabbe_sprite = AnimateSprite(images, music, pos)
             
+            # Bolibompa
+            images = []
+            images.append(pygame.image.load('images/Bolibompa.png'))
+            music = 'music/bolibompa.mp3'
+            pos = [130,160,130,160]
+            bolibompa_sprite = RotateSprite(images, music, pos)
+            
+            
+            self.sprite_group.add(bolibompa_sprite)
             self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
-            self.sprite_group.add(EmilSnickerbo_sprite)
-            self.sprite_group.add(SjoeroevarFabbe_sprite)
+            self.sprite_group.add(emilsnickerbo_sprite)
+            self.sprite_group.add(sjoeroevarfabbe_sprite)
             
             return self.sprite_group, images, music, pos, page_num
         elif page_num == 1:
@@ -260,6 +269,11 @@ def main():
  
         # get all events
         ev = pygame.event.get()
+        
+        if pygame.mixer.music.get_busy() == False:
+            for s in sprite_group:
+                s.clicked = 0       
+            
         # proceed events
         for event in ev:
             sprite_clicked = 0
