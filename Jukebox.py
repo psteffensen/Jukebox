@@ -208,8 +208,6 @@ class Page():
             pos = [160,160,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
-
-            self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
             
             return self.sprite_group, images, music, pos, page_num
