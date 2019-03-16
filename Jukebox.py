@@ -212,7 +212,7 @@ class Page():
             images = []
             images.append(pygame.image.load('images/abba - mamma mia.png'))
             music = 'music/ABBA - Mamma Mia.mp3'
-            pos = [0,160,130,160]
+            pos = [0,160,60,160]
             mammamia_sprite = RotateSprite(images, music, pos)
 
             self.sprite_group.add(mammamia_sprite)
