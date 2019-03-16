@@ -205,15 +205,9 @@ class Page():
             images.append(pygame.image.load('images/cirkeline_small_1.png'))
             images.append(pygame.image.load('images/cirkeline_small_2.png'))
             music = 'music/Cirkeline - Lossepladsen.mp3'
-            pos = [160,0,130,160]
+            pos = [160,10,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
-            # Mamma Mia
-            images = []
-            images.append(pygame.image.load('images/abba - mamma mia.png'))
-            music = 'music/ABBA - Mamma Mia.mp3'
-            pos = [200,160,130,160]
-            mammamia_sprite = RotateSprite(images, music, pos)
 
             self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
