@@ -222,6 +222,8 @@ class Page():
 def main():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     os.chdir( dir_path )
+    os.system('git pull')
+    
     pygame.init()
     pygame.mixer.init()
         
