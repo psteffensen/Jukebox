@@ -191,7 +191,28 @@ class Page():
             pos = [130,160,130,160]
             bolibompa_sprite = RotateSprite(images, music, pos)
             
+            # Kaj og Andrea - Kajs sang
+            images = []
+            images.append(pygame.image.load('images/KajsSang.png'))
+            images.append(pygame.image.load('images/KajsSang_2.png'))
+            images.append(pygame.image.load('images/KajsSang.png'))
+            images.append(pygame.image.load('images/KajsSang_3.png'))
+            music = 'music/KajOgAndrea - KajsSang.mp3'
+            pos = [260,160,130,160]
+            kajssang_sprite = AnimateSprite(images, music, pos)
             
+            
+            ## Kaj og Andrea - Kajs og andreas Duet
+            #images = []
+            #images.append(pygame.image.load('images/KajsSang.png'))
+            #images.append(pygame.image.load('images/KajsSang_2.png'))
+            #images.append(pygame.image.load('images/KajsSang.png'))
+            #images.append(pygame.image.load('images/KajsSang_3.png'))
+            #music = 'music/KajOgAndrea - KajsOgAndreasDuet.mp3'
+            #pos = [260,160,130,160]
+            #kajssang_sprite = AnimateSprite(images, music, pos)
+            
+            self.sprite_group.add(kajssang_sprite)
             self.sprite_group.add(bolibompa_sprite)
             self.sprite_group.add(mammamia_sprite)
             self.sprite_group.add(cirkeline_sprite)
