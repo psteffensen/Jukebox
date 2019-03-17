@@ -153,11 +153,11 @@ class Page():
         self.clear_screen()
         
         if page_num == 0:
-            # Cirkeline Sprite
+            # Cirkeline - Bim bam busse
             images = []
             images.append(pygame.image.load('images/cirkeline_small_1.png'))
             images.append(pygame.image.load('images/cirkeline_small_2.png'))
-            music = 'music/Cirkeline - Lossepladsen.mp3'
+            music = 'music/Cirkeline - BimBamBusse.mp3'
             pos = [0,0,130,160]
             cirkeline_sprite = AnimateSprite(images, music, pos)
             
@@ -201,17 +201,6 @@ class Page():
             pos = [260,160,130,160]
             kajssang_sprite = AnimateSprite(images, music, pos)
             
-            
-            ## Kaj og Andrea - Kajs og andreas Duet
-            #images = []
-            #images.append(pygame.image.load('images/KajsSang.png'))
-            #images.append(pygame.image.load('images/KajsSang_2.png'))
-            #images.append(pygame.image.load('images/KajsSang.png'))
-            #images.append(pygame.image.load('images/KajsSang_3.png'))
-            #music = 'music/KajOgAndrea - KajsOgAndreasDuet.mp3'
-            #pos = [260,160,130,160]
-            #kajssang_sprite = AnimateSprite(images, music, pos)
-            
             self.sprite_group.add(kajssang_sprite)
             self.sprite_group.add(bolibompa_sprite)
             self.sprite_group.add(mammamia_sprite)
@@ -221,15 +210,35 @@ class Page():
             
             return self.sprite_group, images, music, pos, page_num
         elif page_num == 1:
-            # Cirkeline Sprite
+            # Kaj og Andrea - Kajs og andreas Duet
             images = []
-            images.append(pygame.image.load('images/cirkeline_small_1.png'))
-            images.append(pygame.image.load('images/cirkeline_small_2.png'))
-            music = 'music/Cirkeline - Lossepladsen.mp3'
-            pos = [0,160,130,160]
-            cirkeline_sprite = AnimateSprite(images, music, pos)
+            images.append(pygame.image.load('images/KajsOgAndreasDuet_1.png'))
+            images.append(pygame.image.load('images/KajsOgAndreasDuet_2.png'))
+            images.append(pygame.image.load('images/KajsOgAndreasDuet_1.png'))
+            images.append(pygame.image.load('images/KajsOgAndreasDuet_3.png'))
+            music = 'music/KajOgAndrea - KajsOgAndreasDuet.mp3'
+            pos = [0,0,130,160]
+            kajsogandreasduet_sprite = AnimateSprite(images, music, pos)
             
-            self.sprite_group.add(cirkeline_sprite)
+            #Cirkeline - Lossepladsen
+            images = []
+            images.append(pygame.image.load('images/Cirkeline - Lossepladsen 1.png'))
+            images.append(pygame.image.load('images/Cirkeline - Lossepladsen 2.png'))
+            music = 'music/Cirkeline - Lossepladsen.mp3'
+            pos = [130,0,130,160]
+            cirkelinelossepladsen_sprite = AnimateSprite(images, music, pos)
+            
+            # Postmand Per
+            images = []
+            images.append(pygame.image.load('images/PostmandPer.png'))
+            images.append(pygame.image.load('images/PostmandPer_2.png'))
+            music = 'music/PostmandPer.mp3'
+            pos = [260,0,130,160]
+            postmandper_sprite = AnimateSprite(images, music, pos)
+            
+            self.sprite_group.add(postmandper_sprite)
+            self.sprite_group.add(cirkelinelossepladsen_sprite)
+            self.sprite_group.add(kajsogandreasduet_sprite)
             
             return self.sprite_group, images, music, pos, page_num
         else:
