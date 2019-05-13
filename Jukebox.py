@@ -236,9 +236,18 @@ class Page():
             pos = [260,0,130,160]
             postmandper_sprite = AnimateSprite(images, music, pos)
             
+            # Karlsson
+            images = []
+            images.append(pygame.image.load('images/Karlsson_1.png'))
+            images.append(pygame.image.load('images/Karlsson_2.png'))
+            music = 'music/Karlsson.mp3'
+            pos = [0,160,130,160]
+            karlsson_sprite = AnimateSprite(images, music, pos)
+
             self.sprite_group.add(postmandper_sprite)
             self.sprite_group.add(cirkelinelossepladsen_sprite)
             self.sprite_group.add(kajsogandreasduet_sprite)
+            self.sprite_group.add(karlsson_sprite)
             
             return self.sprite_group, images, music, pos, page_num
         else:
